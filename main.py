@@ -7,7 +7,7 @@ import date_analysis as DAS
 
 def Main():
     # FOP.gettxt("DateBase/%23疫情%23_result.csv", "2020-02-01", "2020-03-02")
-    DAS.get_wordcloud_pic('test3')
+    DAS.get_wordcloud_pic(filename='test3')
 
 
 def print_hi(name):
