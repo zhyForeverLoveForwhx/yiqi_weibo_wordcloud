@@ -129,5 +129,8 @@ dmypy.json
 .pyre/
 /DateBase/%23疫情%23_result.csv
 /doc/十九大报告全文.txt
+/DateBase/
+/doc/
+/result/
 /Images/test1.png
 /Images/test3.png
