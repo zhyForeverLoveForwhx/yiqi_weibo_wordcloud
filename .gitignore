@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/DateBase/%23疫情%23_result.csv
+/doc/十九大报告全文.txt
+/Images/test1.png
+/Images/test3.png
