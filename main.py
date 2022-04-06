@@ -1,7 +1,6 @@
 # This is a sample python to get some weibo msg
-import requests
-from bs4 import BeautifulSoup
-import json
+import os
+
 import File_opration as FOP
 import date_analysis as DAS
 from os import path
@@ -9,16 +8,25 @@ from os import path
 def Main():
     #处理原始文件
     d = path.dirname(__file__)
-    datafilepath = d + '/DateBase/everymonth/'
-    filenamelist = [str(i) for i in range(1,13)]
-    datanamelist = ['%23鐤儏%23','鏂板啝','鐤儏']
-    # for i in filenamelist:
-    #     datapath = datafilepath + i + '/'
-    datapath = datafilepath + filenamelist[0] + '/' + datanamelist[0]
-    print(datapath)
-    #处理初始数据
-    # FOP.save_result(Filename="疫情")
+    # FOP.replacedataname(d)
 
+    #处理初始数据
+    datafilepath    = d + '/DateBase/everymonth/'
+    resultfilepath  = d + '/result/everymonth/'
+    filenamelist    = [str(i) for i in range(1, 13)]
+    datanamelist    = ['疫情tag', '新冠', '疫情']
+    for i in filenamelist:
+        datapath        = datafilepath + i + '/'
+        resultpath      = resultfilepath + i + '/'
+        for j in range(0, 3):
+            try:
+                FOP.save_result(Filename=datanamelist[j],resultpath=resultpath,datapath=datapath)
+            except Exception as e:
+                print(e)
+                print(f'make {datapath+datanamelist[j]} fail\r\n')
+            else:
+                print('make {} success\r\n'.format(datapath+datanamelist[j]))
+    print('going on')
     #分类数据
     # starttimelist=["2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01",\
     #                "2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"]
