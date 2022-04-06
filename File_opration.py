@@ -4,7 +4,9 @@ import time
 from datetime import datetime
 from os import path
 
-file_path = 'result/DB0328/'
+# import pathlib
+
+
 save_model = 'a'
 
 def save_result(Filename:str,resultpath :str,datapath:str):
@@ -23,20 +25,23 @@ def save_result(Filename:str,resultpath :str,datapath:str):
                 Headers.append(row[12])
             else:
                 EffectList.append([row[1], row[4], row[12]])
+        f.close()
 
     with open(Result_Path, 'w', encoding='UTF-8-sig')as f:
         f_csv = csv.writer(f)
         f_csv.writerow(Headers)
         f_csv.writerows(EffectList)
+        f.close()
 
-def gettxt(filepath,starttime,endtime):
+def gettxt(filepath:str,filename:str,starttime:str,endtime:str):
     start = datetime.strptime(starttime, '%Y-%m-%d')
     end   = datetime.strptime(endtime  , '%Y-%m-%d')
     if starttime > endtime :
         print("初始时间大于结束时间")
         return
     result = []
-    with open(filepath, encoding='UTF-8')as fr:
+    totalpath = filepath + filename
+    with open(totalpath, encoding='UTF-8')as fr:
         f_csv = csv.reader(fr)
         for row in f_csv:
             if len(row) == 0:
@@ -44,14 +49,14 @@ def gettxt(filepath,starttime,endtime):
             try:
                 rowtime = datetime.strptime(row[2]  , '%Y-%m-%d %H:%M')
             except ValueError:
-                print("error",row[2])
+                print("time error",row[2])
                 continue
             if start<= rowtime and end >= rowtime:
                 result.append(row[1].replace('#疫情#','')+"\n")
             else:
                 print("the time is out",rowtime)
     fr.close()
-    save_filename = file_path + starttime + "--" + endtime +".txt"
+    save_filename = filepath + starttime + "--" + endtime + ".txt"
     fw = open(save_filename,mode=save_model, encoding='UTF-8')
     fw.writelines(result)
     fw.close()
@@ -75,3 +80,34 @@ def replacedataname(d: str):
                 print(f'rename {datapath} fail\r\n')
             else:
                 print('rename {} success\r\n'.format(datapath))
+
+def mergedata(MergeFileName:str,MergePath :str,DataPath:str):
+    #初始化路径和数据结构
+    EffectList = []
+    Headers = []
+    Merge_path = MergePath + MergeFileName
+    #读数据文件
+    with open(DataPath, encoding='UTF-8')as f:
+        f_csv = csv.reader(f)
+        for row in f_csv:
+            if (len(Headers) == 0):
+                Headers.append(row[0])
+                Headers.append(row[1])
+                Headers.append(row[2])
+            else:
+                if(len(row)!=0):
+                    EffectList.append(row)
+        f.close()
+    # 判断文件是否存在,存在则不需要加头
+    # path = pathlib.Path("path/file")
+    # path.exist()
+    if(os.path.exists(Merge_path)):
+        Headers.clear()
+        print('文件已存在,不需要加表头')
+    #写合并的文件
+    with open(Merge_path, 'a', encoding='UTF-8-sig')as f:
+        f_csv = csv.writer(f)
+        if(len(Headers)!=0):
+            f_csv.writerow(Headers)
+        f_csv.writerows(EffectList)
+        f.close()
