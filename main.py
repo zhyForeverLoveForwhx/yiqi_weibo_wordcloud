@@ -4,10 +4,32 @@ from bs4 import BeautifulSoup
 import json
 import File_opration as FOP
 import date_analysis as DAS
+from os import path
 
 def Main():
-    # FOP.gettxt("DateBase/%23疫情%23_result.csv", "2020-02-01", "2020-03-02")
-    DAS.get_wordcloud_pic(filename='test3')
+    #处理原始文件
+    d = path.dirname(__file__)
+    datafilepath = d + '/DateBase/everymonth/'
+    filenamelist = [str(i) for i in range(1,13)]
+    datanamelist = ['%23鐤儏%23','鏂板啝','鐤儏']
+    # for i in filenamelist:
+    #     datapath = datafilepath + i + '/'
+    datapath = datafilepath + filenamelist[0] + '/' + datanamelist[0]
+    print(datapath)
+    #处理初始数据
+    # FOP.save_result(Filename="疫情")
+
+    #分类数据
+    # starttimelist=["2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01",\
+    #                "2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"]
+    # endtimelist  =["2020-02-02","2020-03-02","2020-04-02","2020-05-01","2020-06-01","2020-07-01",\
+    #                "2020-08-02","2020-09-02","2020-10-02","2020-11-02","2020-12-02","2021-01-02"]
+    # for i in range(0,12):
+    #     FOP.gettxt(filepath="result/DB0328/疫情_result.csv", starttime=starttimelist[i], endtime=endtimelist[i])
+
+    #生成可视化图像
+    # file_name = starttimelist + '--' + endtimelist
+    #DAS.get_wordcloud_pic(filename='2020-12-01--2021-01-02')
 
 
 def print_hi(name):

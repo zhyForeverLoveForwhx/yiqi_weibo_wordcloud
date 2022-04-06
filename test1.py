@@ -2,10 +2,19 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from os import path
 
 # %matplotlib inline
+n=list(map(int,input().strip('[]').split(',')))
+# n = [int(i) for i in n]
+print(n)
+d = path.dirname(__file__)
+print(d)
 
+
+'''
 plt.style.use("ggplot")
+
 # # 虚拟数据
 # x = ["A", "B", "C", "D", "E", "F", "G", "H"]
 # y = [150, 85.2, 65.2, 85, 45, 120, 51, 64]
@@ -59,6 +68,7 @@ plt.style.use("ggplot")
 
 
 #data
+
 shops = ["A", "B", "C", "D", "E", "F"]
 sales_product_1 = [100, 85, 56, 42, 72, 15]
 sales_product_2 = [50, 120, 65, 85, 25, 55]
@@ -84,5 +94,5 @@ ax.legend()
 ax.set_xticks(xticks + 0.25)
 ax.set_xticklabels(shops)
 
-
 plt.show()
+'''

@@ -1,13 +1,14 @@
 import csv
 import time
 from datetime import datetime
+from os import path
 
+file_path = 'result/DB0328/'
+save_model = 'a'
 
-def save_result():
-    File_Path = "D:\python_py\weibo_spider\weibo-search\结果文件\%23疫情%23"
-    Filename = "%23疫情%23"
-    CSV_Path = File_Path + "\\" + Filename + ".csv"
-    Result_Path = 'result\\'+ Filename + "_result" + ".csv"
+def save_result(Filename = "%23疫情%23"):
+    CSV_Path = "D:\python_py\yiqi_weibo_wordcloud\DateBase\DB0328\\" + Filename + ".csv"
+    Result_Path = "D:\python_py\yiqi_weibo_wordcloud\\result\DB0328\\" + Filename + "_result" + ".csv"
     EffectList = []
     Headers = []
 
@@ -26,14 +27,14 @@ def save_result():
         f_csv.writerow(Headers)
         f_csv.writerows(EffectList)
 
-def gettxt(filename,starttime,endtime):
+def gettxt(filepath,starttime,endtime):
     start = datetime.strptime(starttime, '%Y-%m-%d')
     end   = datetime.strptime(endtime  , '%Y-%m-%d')
     if starttime > endtime :
         print("初始时间大于结束时间")
         return
     result = []
-    with open(filename, encoding='UTF-8')as fr:
+    with open(filepath, encoding='UTF-8')as fr:
         f_csv = csv.reader(fr)
         for row in f_csv:
             if len(row) == 0:
@@ -48,8 +49,8 @@ def gettxt(filename,starttime,endtime):
             else:
                 print("the time is out",rowtime)
     fr.close()
-    save_filename = 'result\\'+ starttime + "--" + endtime +".txt"
-    fw = open(save_filename,mode='w', encoding='UTF-8')
+    save_filename = file_path + starttime + "--" + endtime +".txt"
+    fw = open(save_filename,mode=save_model, encoding='UTF-8')
     fw.writelines(result)
     fw.close()
 
