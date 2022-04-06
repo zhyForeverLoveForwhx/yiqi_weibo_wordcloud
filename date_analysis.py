@@ -9,9 +9,9 @@ from os import path
 import jieba
 
 jieba.load_userdict(path.join(path.dirname(__file__),'userdict//userdict.txt')) # 导入用户自定义词典
-save_wordcloud_file = 'Images//DB0328//'#保存词云位置
-word_save_path = "doc//DB0328//词频统计"#保存词频位置
-file_save_path = "result//DB0328//"
+save_wordcloud_file = 'Images//everymonth//'#保存词云位置
+word_save_path = "doc//everymonth//词频统计"#保存词频位置
+file_save_path = "result//everymonth//"
 
 def word_segment(text,filename):
     '''

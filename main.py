@@ -29,8 +29,8 @@ def Main():
     print('going on')
     #合并数据
     # ResultDataList = ['疫情tag_result.csv', '新冠_result.csv', '疫情_result.csv']
-    # mergefilepath = d + '/' + 'result/everymonth/merge/'
-    # mergefilename = 'MergeEveryMonth.csv'
+    mergefilepath = d + '/' + 'result/everymonth/merge/'
+    mergefilename = 'MergeEveryMonth.csv'
     # for j in filenamelist:
     #     for i in ResultDataList:
     #         resultdata = resultfilepath + j + '/' + i
@@ -46,17 +46,27 @@ def Main():
     #             print('the {} is not exist'.format(resultdata))
 
     #按时间分类数据
-    # starttimelist=["2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01",\
-    #                "2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"]
-    # endtimelist  =["2020-02-02","2020-03-02","2020-04-02","2020-05-01","2020-06-01","2020-07-01",\
-    #                "2020-08-02","2020-09-02","2020-10-02","2020-11-02","2020-12-02","2021-01-02"]
+    starttimelist=["2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01",\
+                   "2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"]
+    endtimelist  =["2020-02-02","2020-03-02","2020-04-02","2020-05-01","2020-06-01","2020-07-01",\
+                   "2020-08-02","2020-09-02","2020-10-02","2020-11-02","2020-12-02","2021-01-02"]
+    # 一整年
+    FOP.gettxt(filepath=mergefilepath, filename=mergefilename, \
+                           starttime=starttimelist[0], endtime=endtimelist[-1])
+    # 十二个月
     # for i in range(0,12):
-    #     FOP.gettxt(filepath=filepath,filename='', \
-    #                starttime=starttimelist[i], endtime=endtimelist[i])
+    #     try:
+    #         FOP.gettxt(filepath=mergefilepath,filename=mergefilename,\
+    #                    starttime=starttimelist[i], endtime=endtimelist[i])
+    #     except Exception as e:
+    #         print(e)
+    #         print(f'classification the month {i+1} is failed')
+    #     else:
+    #         print(f'classification the month {i+1} is successful')
 
-    #生成可视化图像
+    # 生成可视化图像
     # file_name = starttimelist + '--' + endtimelist
-    #DAS.get_wordcloud_pic(filename='2020-12-01--2021-01-02')
+    # AS.get_wordcloud_pic(filename='2020-12-01--2021-01-02')
 
 
 def print_hi(name):

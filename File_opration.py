@@ -41,6 +41,8 @@ def gettxt(filepath:str,filename:str,starttime:str,endtime:str):
         return
     result = []
     totalpath = filepath + filename
+    outnums = 0
+    totalcount = 0
     with open(totalpath, encoding='UTF-8')as fr:
         f_csv = csv.reader(fr)
         for row in f_csv:
@@ -48,14 +50,18 @@ def gettxt(filepath:str,filename:str,starttime:str,endtime:str):
                 continue
             try:
                 rowtime = datetime.strptime(row[2]  , '%Y-%m-%d %H:%M')
+                totalcount += 1
             except ValueError:
                 print("time error",row[2])
                 continue
             if start<= rowtime and end >= rowtime:
                 result.append(row[1].replace('#疫情#','')+"\n")
             else:
+                outnums += 1
                 print("the time is out",rowtime)
     fr.close()
+    print(f"the total time counting is {totalcount} between {start} and {end}")
+    print(f"the out time counting is {outnums}, out between {start} and {end}")
     save_filename = filepath + starttime + "--" + endtime + ".txt"
     fw = open(save_filename,mode=save_model, encoding='UTF-8')
     fw.writelines(result)
@@ -103,7 +109,7 @@ def mergedata(MergeFileName:str,MergePath :str,DataPath:str):
     # path.exist()
     if(os.path.exists(Merge_path)):
         Headers.clear()
-        print('文件已存在,不需要加表头')
+        # print('文件已存在,不需要加表头')
     #写合并的文件
     with open(Merge_path, 'a', encoding='UTF-8-sig')as f:
         f_csv = csv.writer(f)
