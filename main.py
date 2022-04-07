@@ -1,5 +1,6 @@
 # This is a sample python to get some weibo msg
 import os
+import time
 
 import File_opration as FOP
 import date_analysis as DAS
@@ -51,8 +52,8 @@ def Main():
     endtimelist  =["2020-02-02","2020-03-02","2020-04-02","2020-05-01","2020-06-01","2020-07-01",\
                    "2020-08-02","2020-09-02","2020-10-02","2020-11-02","2020-12-02","2021-01-02"]
     # 一整年
-    FOP.gettxt(filepath=mergefilepath, filename=mergefilename, \
-                           starttime=starttimelist[0], endtime=endtimelist[-1])
+    # FOP.gettxt(filepath=mergefilepath, filename=mergefilename, \
+    #                        starttime=starttimelist[0], endtime=endtimelist[-1])
     # 十二个月
     # for i in range(0,12):
     #     try:
@@ -65,8 +66,17 @@ def Main():
     #         print(f'classification the month {i+1} is successful')
 
     # 生成可视化图像
-    # file_name = starttimelist + '--' + endtimelist
-    # AS.get_wordcloud_pic(filename='2020-12-01--2021-01-02')
+    for i in range(0,12):
+        file_name = starttimelist[i] + '--' + endtimelist[i]
+        t0 = time.time()
+        try:
+            DAS.get_wordcloud_pic(filename=file_name)
+        except Exception as e:
+            print(e)
+        else:
+            print('successful')
+        t1 = time.time()
+        print(f'the {file_name}total generate wordcloud operator costs', t1 - t0, 's')
 
 
 def print_hi(name):
