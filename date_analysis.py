@@ -98,7 +98,7 @@ def get_wordcloud_pic(filename):
     print('generating the wordcloud is coming')
     generate_wordcloud(text,filename)
 
-def emotion_Analysis(filepath: str,filename: str) -> float:
+def emotion_Analysis(filepath: str,filename: str,pic :int = 0) -> float:
     t0 = time.time()
     datapath = filepath + filename +'.txt'
     emo = []
@@ -111,11 +111,50 @@ def emotion_Analysis(filepath: str,filename: str) -> float:
         sum += SN.sentiments
         num += 1
         if(num % 1000 == 0):
-            print(f'第{num}条数据分析完毕')
+            print(f'{filename}第{num}条数据分析完毕')
     file.close()
     average = sum / num
     t1 = time.time()
     print(f'the emotion analysis costs {t1 - t0} s')
-    print(f'total {num} rows data')
-    print('the average sentiment is', average)
+    print(f'{filename} total {num} rows data')
+    print(f'the average sentiment of {filename} is', average)
+    if(pic == 1):
+        x = [str(i) for i in range(1,num+1)]
+        generate_Histogram(x,emo,title='try save pic',savepath='Images/histogram/',picname='try_SA')
     return average
+
+def generate_Histogram(x,y,title:str,savepath: str,picname: str):
+    plt.style.use("ggplot")
+    # 设置常用参数
+    fig, ax = plt.subplots(figsize=(10, 7))
+    ax.bar(
+        x=x,  # Matplotlib自动将非数值变量转化为x轴坐标
+        height=y,  # 柱子高度，y轴坐标
+        width=0.6,  # 柱子宽度，默认0.8，两根柱子中心的距离默认为1.0
+        align="center",  # 柱子的对齐方式，'center' or 'edge'
+        color="grey",  # 柱子颜色
+        edgecolor="red",  # 柱子边框的颜色
+        linewidth=2.0  # 柱子边框线的大小
+    )
+    ax.set_title(title, fontsize=15)
+    # 一个常见的场景是：每根柱子上方添加数值标签
+    # 步骤：
+    # 1. 准备要添加的标签和坐标
+    # 2. 调用ax.annotate()将文本添加到图表
+    # 3. 调整样式，例如标签大小，颜色和对齐方式
+    xticks = ax.get_xticks()
+    for i in range(len(y)):
+        xy = (xticks[i], y[i] * 1.03)
+        s = str(y[i])
+        ax.annotate(
+            text=s,  # 要添加的文本
+            xy=xy,  # 将文本添加到哪个位置
+            fontsize=12,  # 标签大小
+            color="blue",  # 标签颜色
+            ha="center",  # 水平对齐
+            va="baseline"  # 垂直对齐
+        )
+    save = savepath + picname + '.png'
+    plt.savefig(save)
+    plt.show()
+    return

@@ -77,14 +77,25 @@ def Main():
     #         print('successful')
     #     t1 = time.time()
     #     print(f'the {file_name}total generate wordcloud operator costs', t1 - t0, 's')
-    try:
-        emo = DAS.emotion_Analysis( d + '/result/','try_SA')
-    except Exception as e:
-        print(e)
-        print('failed')
-    else:
-        print('the emotion Analysis successful')
-        print('the average emotion is ',emo)
+    x =[]
+    y =[]
+    for i in range(12):
+        try:
+            file_name = starttimelist[i] + '--' + endtimelist[i]
+            print(f'the emotion Analysis of {file_name} is coming')
+            emo = DAS.emotion_Analysis(filepath=mergefilepath, filename=file_name)
+        except Exception as e:
+            print(e)
+            print(f'the emotion Analysis of {file_name} is failed')
+        else:
+            print(f'the emotion Analysis of {file_name} is successful')
+            print('the average emotion is ',emo)
+            x.append(str(i+1))
+            y.append(emo)
+    DAS.generate_Histogram(x,y,title='12 month average emotion tendencies level',\
+                           savepath='Images/histogram/',picname='12month_average_emo')
+    print(x)
+    print(y)
 
 
 def print_hi(name):
