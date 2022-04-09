@@ -3,16 +3,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from os import path
+import time
 
 # %matplotlib inline
-n=list(map(int,input().strip('[]').split(',')))
+# n=list(map(int,input().strip('[]').split(',')))
 # n = [int(i) for i in n]
-print(n)
-d = path.dirname(__file__)
-print(d)
+
+# datapath = 'result/try_SA.txt'
+# emo = []
+# # sum,num = 0
+# file = open(datapath, mode='r', encoding='UTF-8')
+# text = file.read().split('\n')
+# print(text)
 
 
-'''
 plt.style.use("ggplot")
 
 # # 虚拟数据
@@ -95,4 +99,4 @@ ax.set_xticks(xticks + 0.25)
 ax.set_xticklabels(shops)
 
 plt.show()
-'''
+

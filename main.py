@@ -65,18 +65,26 @@ def Main():
     #     else:
     #         print(f'classification the month {i+1} is successful')
 
-    # 生成可视化图像
-    for i in range(0,12):
-        file_name = starttimelist[i] + '--' + endtimelist[i]
-        t0 = time.time()
-        try:
-            DAS.get_wordcloud_pic(filename=file_name)
-        except Exception as e:
-            print(e)
-        else:
-            print('successful')
-        t1 = time.time()
-        print(f'the {file_name}total generate wordcloud operator costs', t1 - t0, 's')
+    # 生成词云可视化图像
+    # for i in range(0,12):
+    #     file_name = starttimelist[i] + '--' + endtimelist[i]
+    #     t0 = time.time()
+    #     try:
+    #         DAS.get_wordcloud_pic(filename=file_name)
+    #     except Exception as e:
+    #         print(e)
+    #     else:
+    #         print('successful')
+    #     t1 = time.time()
+    #     print(f'the {file_name}total generate wordcloud operator costs', t1 - t0, 's')
+    try:
+        emo = DAS.emotion_Analysis( d + '/result/','try_SA')
+    except Exception as e:
+        print(e)
+        print('failed')
+    else:
+        print('the emotion Analysis successful')
+        print('the average emotion is ',emo)
 
 
 def print_hi(name):

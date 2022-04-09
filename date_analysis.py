@@ -7,6 +7,7 @@ import time
 from collections import Counter
 from os import path
 import jieba
+from snownlp import SnowNLP
 
 jieba.load_userdict(path.join(path.dirname(__file__),'userdict//userdict.txt')) # 导入用户自定义词典
 save_wordcloud_file = 'Images/everymonth/'#保存词云位置
@@ -96,3 +97,25 @@ def get_wordcloud_pic(filename):
     # 生成词云
     print('generating the wordcloud is coming')
     generate_wordcloud(text,filename)
+
+def emotion_Analysis(filepath: str,filename: str) -> float:
+    t0 = time.time()
+    datapath = filepath + filename +'.txt'
+    emo = []
+    sum,num = 0,0
+    file = open(datapath, mode='r', encoding='UTF-8')
+    text = file.read().split()
+    for row in text:
+        SN = SnowNLP(row)
+        emo.append(SN.sentiments)
+        sum += SN.sentiments
+        num += 1
+        if(num % 1000 == 0):
+            print(f'第{num}条数据分析完毕')
+    file.close()
+    average = sum / num
+    t1 = time.time()
+    print(f'the emotion analysis costs {t1 - t0} s')
+    print(f'total {num} rows data')
+    print('the average sentiment is', average)
+    return average
