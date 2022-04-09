@@ -77,25 +77,34 @@ def Main():
     #         print('successful')
     #     t1 = time.time()
     #     print(f'the {file_name}total generate wordcloud operator costs', t1 - t0, 's')
-    x =[]
-    y =[]
-    for i in range(12):
-        try:
-            file_name = starttimelist[i] + '--' + endtimelist[i]
-            print(f'the emotion Analysis of {file_name} is coming')
-            emo = DAS.emotion_Analysis(filepath=mergefilepath, filename=file_name)
-        except Exception as e:
-            print(e)
-            print(f'the emotion Analysis of {file_name} is failed')
-        else:
-            print(f'the emotion Analysis of {file_name} is successful')
-            print('the average emotion is ',emo)
-            x.append(str(i+1))
-            y.append(emo)
-    DAS.generate_Histogram(x,y,title='12 month average emotion tendencies level',\
-                           savepath='Images/histogram/',picname='12month_average_emo')
-    print(x)
-    print(y)
+
+    #每个月的情感分析
+    # x =[]
+    # y =[]
+    # for i in range(12):
+    #     try:
+    #         file_name = starttimelist[i] + '--' + endtimelist[i]
+    #         print(f'the emotion Analysis of {file_name} is coming')
+    #         emo = DAS.emotion_Analysis(filepath=mergefilepath, filename=file_name)
+    #     except Exception as e:
+    #         print(e)
+    #         print(f'the emotion Analysis of {file_name} is failed')
+    #     else:
+    #         print(f'the emotion Analysis of {file_name} is successful')
+    #         print('the average emotion is ',emo)
+    #         x.append(str(i+1))
+    #         y.append(emo)
+    # DAS.generate_Histogram(x,y,title='12 month average emotion tendencies level',\
+    #                        savepath='Images/histogram/',picname='12month_average_emo')
+    # print(x)
+    # print(y)
+    # emo = [0.6449408255860996, 0.640376106393328, 0.666891580056435, 0.6984714852741535, 0.6901255141150773, 0.6703882650483622, 0.7044197542334472, 0.7210809562554654, 0.7287558833184289, 0.7028077112887696, 0.6570132434312324, 0.700902349500675]
+    #条形图的制作
+    x = [str(i) for i in range(1,13)]
+    y = [2418,15091,18155,9622,5153,3666,65556,51581,64980,2625,72040,43392]
+    DAS.generate_Histogram(x, y, title='12 month data length tendencies level', \
+                               savepath='Images/histogram/',picname='12month_data_size')
+
 
 
 def print_hi(name):
