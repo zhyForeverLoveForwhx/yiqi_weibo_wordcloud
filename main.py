@@ -66,6 +66,8 @@ def Main():
     #         print(f'classification the month {i+1} is successful')
 
     # 生成词云可视化图像
+    file_name = starttimelist[0] + '--' + endtimelist[-1]
+    DAS.get_wordcloud_pic(filename=file_name)
     # for i in range(0,12):
     #     file_name = starttimelist[i] + '--' + endtimelist[i]
     #     t0 = time.time()
@@ -100,10 +102,14 @@ def Main():
     # print(y)
     # emo = [0.6449408255860996, 0.640376106393328, 0.666891580056435, 0.6984714852741535, 0.6901255141150773, 0.6703882650483622, 0.7044197542334472, 0.7210809562554654, 0.7287558833184289, 0.7028077112887696, 0.6570132434312324, 0.700902349500675]
     #条形图的制作
-    x = [str(i) for i in range(1,13)]
-    y = [2418,15091,18155,9622,5153,3666,65556,51581,64980,2625,72040,43392]
-    DAS.generate_Histogram(x, y, title='12 month data length tendencies level', \
-                               savepath='Images/histogram/',picname='12month_data_size')
+    # x = [str(i) for i in range(1,13)]
+    # y = [2418,15091,18155,9622,5153,3666,65556,51581,64980,52625,72040,43392]
+    # DAS.generate_Histogram(x, y, title='12 month data length tendencies level', \
+    #                            savepath='Images/histogram/',picname='12month_data_size2')
+    # sum = 0
+    # for i in y:
+    #     sum += i
+    # print(sum)
 
 
 
