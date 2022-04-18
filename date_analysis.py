@@ -14,6 +14,7 @@ save_wordcloud_file = 'Images/everymonth/'#保存词云位置
 word_save_path = "doc/everymonth/词频统计"#保存词频位置
 file_save_path = "result/everymonth/merge/"
 
+# 分词处理
 def word_segment(text,filename):
     '''
     通过jieba进行分词并通过空格分隔,返回分词后的结果
@@ -21,7 +22,7 @@ def word_segment(text,filename):
     save_path = word_save_path + filename + '.txt'
     # 计算每个词出现的频率，并存入txt文件
     t0 = time.time()
-    jieba_word=jieba.cut(text,cut_all=False) # cut_all是分词模式，True是全模式，False是精准模式，默认False
+    jieba_word = jieba.cut(text,cut_all=False) # cut_all是分词模式，True是全模式，False是精准模式，默认False
     # 保存词频
     data = []
     for word in jieba_word:
@@ -38,12 +39,13 @@ def word_segment(text,filename):
     print('jieba save word frequecy costs', t1 - t0, 's')
     # 返回分词后的结果
     t0 = time.time()
-    jieba_word=jieba.cut(text,cut_all=False) # cut_all是分词模式，True是全模式，False是精准模式，默认False
+    jieba_word = jieba.cut(text,cut_all=False) # cut_all是分词模式，True是全模式，False是精准模式，默认False
     seg_list=' '.join(jieba_word)
     t1 = time.time()
     print('jieba return participle operator costs', t1 - t0, 's')
     return seg_list
 
+# 生成词云
 def generate_wordcloud(text,filename):
     '''
     输入文本生成词云,如果是中文文本需要先进行分词处理
@@ -82,6 +84,7 @@ def generate_wordcloud(text,filename):
     plt.axis("off")# 关掉图像的坐标
     plt.show()
 
+# 获取词云图
 def get_wordcloud_pic(filename):
     # 读取文件
     d = path.dirname(__file__)
@@ -98,6 +101,7 @@ def get_wordcloud_pic(filename):
     print('generating the wordcloud is coming')
     generate_wordcloud(text,filename)
 
+# 进行情感分析
 def emotion_Analysis(filepath: str,filename: str,pic :int = 0) -> float:
     t0 = time.time()
     datapath = filepath + filename +'.txt'
@@ -123,6 +127,7 @@ def emotion_Analysis(filepath: str,filename: str,pic :int = 0) -> float:
         generate_Histogram(x,emo,title='try save pic',savepath='Images/histogram/',picname='try_SA')
     return average
 
+# 生成柱状图
 def generate_Histogram(x,y,title:str,savepath: str,picname: str):
     plt.style.use("ggplot")
     # 设置常用参数

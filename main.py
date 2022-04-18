@@ -66,8 +66,8 @@ def Main():
     #         print(f'classification the month {i+1} is successful')
 
     # 生成词云可视化图像
-    file_name = starttimelist[0] + '--' + endtimelist[-1]
-    DAS.get_wordcloud_pic(filename=file_name)
+    file_name = starttimelist[10] + '--' + endtimelist[10]
+    # DAS.get_wordcloud_pic(filename=file_name)
     # for i in range(0,12):
     #     file_name = starttimelist[i] + '--' + endtimelist[i]
     #     t0 = time.time()
@@ -110,6 +110,16 @@ def Main():
     # for i in y:
     #     sum += i
     # print(sum)
+    filepath = d + '/' + 'doc/everymonth/词频统计' +file_name + '.txt'
+    word = '输入'
+    try:
+        num = FOP.countFromFile(word,filepath=filepath)
+    except Exception as e:
+        print(e)
+    else:
+        print('successful')
+        print(f'{word} count is {num}')
+
 
 
 

@@ -9,6 +9,7 @@ from os import path
 
 save_model = 'a'
 
+# 数据去冗余
 def save_result(Filename:str,resultpath :str,datapath:str):
     #dir = path.dirname(__file__)
     CSV_Path = datapath + Filename + ".csv"
@@ -33,6 +34,7 @@ def save_result(Filename:str,resultpath :str,datapath:str):
         f_csv.writerows(EffectList)
         f.close()
 
+# 数据按时间分类
 def gettxt(filepath:str,filename:str,starttime:str,endtime:str):
     start = datetime.strptime(starttime, '%Y-%m-%d')
     end   = datetime.strptime(endtime  , '%Y-%m-%d')
@@ -67,9 +69,11 @@ def gettxt(filepath:str,filename:str,starttime:str,endtime:str):
     fw.writelines(result)
     fw.close()
 
+# 替换文中的tag
 def removetag(a : str) -> str:
     return a.replace('#疫情#','')
 
+# 对数据文件进行更名操作
 def replacedataname(d: str):
     datafilepath = d + '/DateBase/everymonth/'
     filenamelist = [str(i) for i in range(1, 13)]
@@ -87,6 +91,7 @@ def replacedataname(d: str):
             else:
                 print('rename {} success\r\n'.format(datapath))
 
+# 相同类型数据合并
 def mergedata(MergeFileName:str,MergePath :str,DataPath:str):
     #初始化路径和数据结构
     EffectList = []
@@ -117,3 +122,22 @@ def mergedata(MergeFileName:str,MergePath :str,DataPath:str):
             f_csv.writerow(Headers)
         f_csv.writerows(EffectList)
         f.close()
+
+# 从数据文件中获取词语的频率
+def countFromFile(data: str,filepath: str) -> int:
+    text = open(filepath,'r',encoding='UTF-8-sig')
+    text = text.readlines()
+    for row in text:
+        if row.isspace():
+            continue
+        mid = row.strip('\n').split(',')
+        mid[-1] = int(mid[-1])
+        if(data==mid[0]):
+            print(f'the word {data} is exist',mid)
+            return mid[-1]
+    print(f'the word {data} is not exist')
+    return 0
+
+
+
+
