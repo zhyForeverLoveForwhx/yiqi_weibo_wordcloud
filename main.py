@@ -9,16 +9,23 @@ from os import path
 def Main():
     #处理原始文件
     d = path.dirname(__file__)
-    # FOP.replacedataname(d)
+    #FOP.replacedataname(d)
 
     #处理初始数据
-    # datafilepath    = d + '/DateBase/everymonth/'
+    datafilepath    = d + '/DateBase/everymonth/'
     resultfilepath  = d + '/result/everymonth/'
     filenamelist    = [str(i) for i in range(1, 13)]
-    # datanamelist    = ['疫情tag', '新冠', '疫情']
+    datanamelist    = ['疫情tag', '新冠', '疫情']
+
+    #新数据
+    # datapath = datafilepath + '10' + '/'
+    # resultpath  = resultfilepath + '10' + '/'
+    # for j in range(0, 3):
+    #     FOP.save_result(Filename=datanamelist[j], resultpath=resultpath, datapath=datapath,model='a')
+
     # for i in filenamelist:
-    #     datapath        = datafilepath + i + '/'
-    #     resultpath      = resultfilepath + i + '/'
+    #     datapath    = datafilepath + i + '/'
+    #     resultpath  = resultfilepath + i + '/'
     #     for j in range(0, 3):
     #         try:
     #             FOP.save_result(Filename=datanamelist[j],resultpath=resultpath,datapath=datapath)
@@ -29,7 +36,7 @@ def Main():
     #             print('make {} success\r\n'.format(datapath+datanamelist[j]))
     print('going on')
     #合并数据
-    # ResultDataList = ['疫情tag_result.csv', '新冠_result.csv', '疫情_result.csv']
+    ResultDataList = ['疫情tag_result.csv', '新冠_result.csv', '疫情_result.csv']
     mergefilepath = d + '/' + 'result/everymonth/merge/'
     mergefilename = 'MergeEveryMonth.csv'
     # for j in filenamelist:
@@ -51,10 +58,10 @@ def Main():
                    "2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"]
     endtimelist  =["2020-02-02","2020-03-02","2020-04-02","2020-05-01","2020-06-01","2020-07-01",\
                    "2020-08-02","2020-09-02","2020-10-02","2020-11-02","2020-12-02","2021-01-02"]
-    # 一整年
+    # # 一整年
     # FOP.gettxt(filepath=mergefilepath, filename=mergefilename, \
     #                        starttime=starttimelist[0], endtime=endtimelist[-1])
-    # 十二个月
+    # # 十二个月
     # for i in range(0,12):
     #     try:
     #         FOP.gettxt(filepath=mergefilepath,filename=mergefilename,\
@@ -65,8 +72,8 @@ def Main():
     #     else:
     #         print(f'classification the month {i+1} is successful')
 
+    file_name = starttimelist[0] + '--' + endtimelist[-1]
     # 生成词云可视化图像
-    file_name = starttimelist[10] + '--' + endtimelist[10]
     # DAS.get_wordcloud_pic(filename=file_name)
     # for i in range(0,12):
     #     file_name = starttimelist[i] + '--' + endtimelist[i]
@@ -82,7 +89,8 @@ def Main():
 
     #每个月的情感分析
     # x =[]
-    # y =[]
+    y =[]
+    # emo = DAS.emotion_Analysis(filepath=mergefilepath, filename=file_name)
     # for i in range(12):
     #     try:
     #         file_name = starttimelist[i] + '--' + endtimelist[i]
@@ -100,25 +108,42 @@ def Main():
     #                        savepath='Images/histogram/',picname='12month_average_emo')
     # print(x)
     # print(y)
-    # emo = [0.6449408255860996, 0.640376106393328, 0.666891580056435, 0.6984714852741535, 0.6901255141150773, 0.6703882650483622, 0.7044197542334472, 0.7210809562554654, 0.7287558833184289, 0.7028077112887696, 0.6570132434312324, 0.700902349500675]
+    emo = [0.6449408255860996, 0.640376106393328, 0.666891580056435, 0.6984714852741535, 0.6901255141150773, 0.6703882650483622,\
+           0.7044197542334472, 0.7210809562554654, 0.7287558833184289, 0.6662412989090554, 0.6570132434312324, 0.700902349500675]
     #条形图的制作
-    # x = [str(i) for i in range(1,13)]
-    # y = [2418,15091,18155,9622,5153,3666,65556,51581,64980,52625,72040,43392]
+    x = [str(i) for i in range(1,13)]
+    # y = [2418,15091,18155,9622,5153,3666,65556,51581,64980,47015,72040,43392]
     # DAS.generate_Histogram(x, y, title='12 month data length tendencies level', \
-    #                            savepath='Images/histogram/',picname='12month_data_size2')
-    # sum = 0
-    # for i in y:
-    #     sum += i
-    # print(sum)
-    filepath = d + '/' + 'doc/everymonth/词频统计' +file_name + '.txt'
-    word = '输入'
-    try:
-        num = FOP.countFromFile(word,filepath=filepath)
-    except Exception as e:
-        print(e)
-    else:
-        print('successful')
-        print(f'{word} count is {num}')
+    #                            savepath='Images/histogram/',picname='12month_data_size3')
+
+
+    # for i in range(12):
+    #     emo[i] = round(emo[i],4)
+    # DAS.generate_Histogram(x,emo,title='12 month average emotion tendencies level',\
+    #                        savepath='Images/histogram/',picname='12month_average_emo')
+    #查找文件中某词的频率
+    word = '境外输入'
+    for i in range(0, 12):
+        file_name = starttimelist[i] + '--' + endtimelist[i]
+        filepath = d + '/' + 'doc/everymonth/词频统计' +file_name + '.txt'
+        try:
+            num = FOP.countFromFile(word,filepath=filepath)
+        except Exception as e:
+            print(e)
+        else:
+            print('successful')
+            print(f'{word} count is {num}')
+            y.append(num)
+
+    DAS.generate_Histogram(x, y, title=f'12 month {word} frequency level', \
+            savepath='Images/histogram/',picname=f'everymonth_{word}_frequency')
+
+    # 计算总数
+    sum = 0
+    for i in y:
+        sum += i
+    print(f'the sum of {word} is ',sum)
+    print('going on 26507')
 
 
 

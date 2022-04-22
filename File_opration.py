@@ -7,10 +7,10 @@ from os import path
 # import pathlib
 
 
-save_model = 'a'
+save_model = 'w'
 
 # 数据去冗余
-def save_result(Filename:str,resultpath :str,datapath:str):
+def save_result(Filename:str,resultpath :str,datapath:str,model:str ='w'):
     #dir = path.dirname(__file__)
     CSV_Path = datapath + Filename + ".csv"
     Result_Path = resultpath + Filename + "_result" + ".csv"
@@ -28,9 +28,10 @@ def save_result(Filename:str,resultpath :str,datapath:str):
                 EffectList.append([row[1], row[4], row[12]])
         f.close()
 
-    with open(Result_Path, 'w', encoding='UTF-8-sig')as f:
+    with open(Result_Path, model, encoding='UTF-8-sig')as f:
         f_csv = csv.writer(f)
-        f_csv.writerow(Headers)
+        if(model=='w'):
+            f_csv.writerow(Headers)
         f_csv.writerows(EffectList)
         f.close()
 
@@ -133,7 +134,7 @@ def countFromFile(data: str,filepath: str) -> int:
         mid = row.strip('\n').split(',')
         mid[-1] = int(mid[-1])
         if(data==mid[0]):
-            print(f'the word {data} is exist',mid)
+            print(f'the word {data} is exist')
             return mid[-1]
     print(f'the word {data} is not exist')
     return 0

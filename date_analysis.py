@@ -104,7 +104,7 @@ def get_wordcloud_pic(filename):
 # 进行情感分析
 def emotion_Analysis(filepath: str,filename: str,pic :int = 0) -> float:
     t0 = time.time()
-    datapath = filepath + filename +'.txt'
+    datapath = filepath + filename + '.txt'
     emo = []
     sum,num = 0,0
     file = open(datapath, mode='r', encoding='UTF-8')
@@ -130,6 +130,7 @@ def emotion_Analysis(filepath: str,filename: str,pic :int = 0) -> float:
 # 生成柱状图
 def generate_Histogram(x,y,title:str,savepath: str,picname: str):
     plt.style.use("ggplot")
+    plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] # plt支持中文
     # 设置常用参数
     fig, ax = plt.subplots(figsize=(10, 7))
     ax.bar(
